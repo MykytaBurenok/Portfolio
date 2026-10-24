@@ -1162,8 +1162,8 @@ h2 em {
   transition: transform 440ms var(--motion-hover-ease), opacity 440ms ease;
 }
 
-.project-card:hover .project-geometry {
-  transform: scale(1.035);
+.project-card:hover .project-visual {
+  transform: scale(1.02);
 }
 
 .project-card:focus-within {
@@ -1213,6 +1213,79 @@ h2 em {
   padding: 6px 7px;
   font-size: 7px;
   letter-spacing: 0.8px;
+}
+
+.project-frame {
+  position: absolute;
+  inset: 45px 15px 20px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 12% 16%, rgba(120, 151, 217, 0.2), transparent 45%),
+    #050a17;
+}
+
+.project-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(5, 10, 23, 0.08) 0%,
+    rgba(5, 10, 23, 0.38) 100%
+  );
+}
+
+.project-screenshot-strip {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--accent), transparent 35%) transparent;
+}
+
+.project-screenshot-strip::-webkit-scrollbar {
+  height: 7px;
+}
+
+.project-screenshot-strip::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.project-screenshot-strip::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--accent), transparent 35%);
+  border-radius: 99px;
+}
+
+.project-shot {
+  position: relative;
+  margin: 0;
+  min-height: 100%;
+  scroll-snap-align: start;
+}
+
+.project-shot-image {
+  object-fit: cover;
+  object-position: top center;
+}
+
+.project-scroll-hint {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 2;
+  padding: 5px 7px;
+  border: 1px solid var(--geometry-soft);
+  background: color-mix(in srgb, var(--surface), transparent 18%);
+  color: var(--muted);
+  font-size: 7px;
+  letter-spacing: 0.1em;
 }
 
 .project-geometry {
@@ -2185,3 +2258,7 @@ h2 em {
   .contact-copy h2 { animation: none !important; }
   .arcturus-light { opacity: 0.9; }
 }
+
+
+
+

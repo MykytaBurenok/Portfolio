@@ -27,6 +27,43 @@ const themes = [
   { id: "dusty-coral", name: "Dusty Coral" },
 ] as const;
 
+const screenshotSets = {
+  intelligenceDashboard: [
+    {
+      src: "/projects/screen-3.png",
+      alt: "Intelligence Dashboard overview with AI brief and impact score",
+    },
+    {
+      src: "/projects/screen-4.png",
+      alt: "Intelligence Dashboard market impact overview with signal cards",
+    },
+  ],
+  tmdbSearch: [
+    {
+      src: "/projects/screen-7.png",
+      alt: "TMDB Search app hero screen with discover films search bar",
+    },
+    {
+      src: "/projects/screen-1.png",
+      alt: "TMDB Search app results grid for Independence Day query",
+    },
+    {
+      src: "/projects/screen-2.png",
+      alt: "TMDB Search app movie details modal for Independence Day",
+    },
+  ],
+  weatherDashboard: [
+    {
+      src: "/projects/screen-5.png",
+      alt: "Weather Dashboard main view with current weather and hourly forecast",
+    },
+    {
+      src: "/projects/screen-6.png",
+      alt: "Weather Dashboard 7-day forecast list",
+    },
+  ],
+} as const;
+
 const projects = [
   {
     number: "01",
@@ -37,6 +74,7 @@ const projects = [
     status: "In development · Preparing for deployment",
     tags: ["Python", "JavaScript", "React", "TypeScript", "Tailwind CSS", "Testing"],
     shape: "circle",
+    screenshots: [],
     companyWebsite: "https://voushify.com/",
   },
   {
@@ -55,6 +93,7 @@ const projects = [
       "AI content integration",
     ],
     shape: "diamond",
+    screenshots: screenshotSets.intelligenceDashboard,
     liveDemo: "https://intelligence-dashboard-three.vercel.app/",
     github: "https://github.com/MykytaBurenok/intelligence-dashboard",
   },
@@ -75,6 +114,7 @@ const projects = [
       "react-hot-toast",
     ],
     shape: "orbit",
+    screenshots: screenshotSets.tmdbSearch,
     liveDemo: "https://movie-search-app-tmdb-project.vercel.app/",
     github: "https://github.com/MykytaBurenok/Movie-Search-App",
   },
@@ -87,6 +127,7 @@ const projects = [
     status: null,
     tags: ["HTML", "CSS", "JavaScript", "Open-Meteo API"],
     shape: "circle",
+    screenshots: screenshotSets.weatherDashboard,
     liveDemo: "https://mykytaburenok.github.io/Weather-Dashboard/",
     github: "https://github.com/MykytaBurenok/Weather-Dashboard",
   },
@@ -468,15 +509,39 @@ export default function Home() {
                       <span>{project.type}</span>
                     </div>
 
-                    <div
-                      className={`project-geometry geometry-${project.shape}`}
-                    >
-                      <span className="geometry-line geometry-line-one" />
-                      <span className="geometry-line geometry-line-two" />
-                      <span className="geometry-line geometry-line-three" />
-                      <span className="geometry-center">{project.number}</span>
-                      <span className="geometry-orbit" />
-                    </div>
+                    {project.screenshots.length > 0 ? (
+                      <div className="project-frame project-visual">
+                        <div
+                          className="project-screenshot-strip"
+                          aria-label={`${project.name} screenshots`}
+                        >
+                          {project.screenshots.map((shot) => (
+                            <figure className="project-shot" key={shot.src}>
+                              <Image
+                                src={shot.src}
+                                alt={shot.alt}
+                                fill
+                                sizes="(max-width: 960px) 92vw, 560px"
+                                className="project-shot-image"
+                              />
+                            </figure>
+                          ))}
+                        </div>
+                        {project.screenshots.length > 1 && (
+                          <span className="project-scroll-hint">SCROLL</span>
+                        )}
+                      </div>
+                    ) : (
+                      <div
+                        className={`project-geometry project-visual geometry-${project.shape}`}
+                      >
+                        <span className="geometry-line geometry-line-one" />
+                        <span className="geometry-line geometry-line-two" />
+                        <span className="geometry-line geometry-line-three" />
+                        <span className="geometry-center">{project.number}</span>
+                        <span className="geometry-orbit" />
+                      </div>
+                    )}
 
                     <span className="project-art-caption">
                       VISUAL STUDY / {project.number}
@@ -681,3 +746,7 @@ export default function Home() {
     </div>
   );
 }
+
+
+
+
